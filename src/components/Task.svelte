@@ -1,51 +1,46 @@
 <script>
-	export let id;
-	export let see;
-	export let option;
-	export let complete;
-	export let edit;
-	export let text;
+	import { clickOutside } from "../helpers/click-outside";
+
+	export let task;
 	export let tasks;
 	export let textEdit;
 
-	import { clickOutside } from "../helpers/clickOutside";
-
-	const falseSee = () => see = false;
-
 	const changeSee = () => {
-    const reloadTasks = tasks.map(task => {
-      if (task.id === id) {
-        task.see = !task.see;
-      } else task.see = false;
-      return task;
+    tasks = tasks.map(item => {
+      if (item.id === task.id) {
+        item.see = !item.see;
+      } else item.see = false;
+			
+      return item;
     });
-
-		tasks = reloadTasks;
   };
 </script>
 
 <div class='box-task'>
-	<div class={`text-task ${option ? 'important-task' : ''} ${complete ? 'complete-task' : ''}`.trim()} contentEditable={edit}>
-		{text}
+	<div
+		class={`text-task ${task.option ? 'important-task' : ''} ${task.complete ? 'complete-task' : ''}`.trim()}
+		contentEditable={task.edit}
+	>
+		{task.text}
 	</div>
 	<div class="box-icons">
-		{#if edit}
-		<div class="icon-task" on:mousedown={() => {textEdit(id); changeSee}}>
-			<i class='fa-regular fa-square-check proper-icon'></i>
+		{#if task.edit}
+		<div class="icon-task" on:mousedown={() => {textEdit(task.id); changeSee}}>
+			<i class='fa-regular fa-square-check'></i>
 		</div>
 		{:else}
 		<div
 			class="icon-task"
 			use:clickOutside
-			on:outclick={falseSee}
+			on:outclick={() => task.see = false}
 			on:mousedown={changeSee}
 		>
-			{#if see}
-			<div class='list-icons'>
+			{#if task.see}
+			<ul>
 				<slot></slot>
-			</div>
+			</ul>
 			{/if}
-			<i class='fa-solid fa-grip-vertical proper-icon'></i>
+			<i class='fa-solid fa-grip-vertical'></i>
 		</div>
 		{/if}
 	</div>
@@ -54,6 +49,7 @@
 <style>
 	.box-task {
 		display: flex;
+		position: relative;
 		width: 100%;
 		height: min-content;
 	}
@@ -83,20 +79,20 @@
 		cursor: pointer;
 	}
 
-	.list-icons {
+	ul {
 		position: absolute;
 		width: 150px;
 		height: min-content;
-		margin-top: 20px;
-		margin-left: -70px;
+		right: 0;
+		margin: 20px -10px 0 0;
 		padding: 5px 0;
 		background-color: #ffffff;
 		border-radius: 2px;
-		box-shadow: 1px 1px 2px #cccccc;
-		z-index: 50;
+		box-shadow: 0 0 5px #aaaaaa;
+		z-index: 250;
 	}
 	
-	.proper-icon {
+	i {
 		width: 16px;
 		height: 16px;
 	}	

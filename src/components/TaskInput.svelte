@@ -2,42 +2,27 @@
 	export let output;
 </script>
 
-<div class='container-input'>
-	<div class='input-div'>
-		<input
-			type='text'
-			class='input-task'
-			bind:value={output}
-		/>
-	</div>
-	<div class='container-buttons'>
-		<slot></slot>
-	</div>
+<div>
+	<input type='text' bind:value={output} />
+	<slot></slot>
 </div>
 
 <style>
-	.input-div {
+	div {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		justify-items: center;
 		width: 100%;
 	}
-	
-	.input-task {
-		display: block;
-		min-width: 300px;
-		width: 40%;
-		max-width: 600px;
+
+	input {
+		grid-column: 1 / span 2;
+		width: 450px;
 		margin: 10px auto;
 		padding: 4px 8px;
 		font-size: 1.2rem;
 		border: none;
 		outline: none;
 		border-radius: 2px;
-	}
-	
-	.container-buttons {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 10px 0;
-		gap: 15px;
 	}
 </style>

@@ -5,7 +5,7 @@
 	import Icon from './components/Icon.svelte';
 	import MessageError from './components/Message.svelte';
 	import MessageAlert from './components/Alert.svelte';
-	import { randomId } from './helpers/randomId.js';
+	import { randomId } from './helpers/random-id.js';
 
 	let output = '';
 	let tasks = [];
@@ -13,7 +13,7 @@
 	let alert = false;
 	let taskId = false;
 
-	const addTask = async (value) => {
+	const addTask = async value => {
 		if (output && value === 'Accept') {
 			const task = {
 				id: randomId(),
@@ -29,7 +29,7 @@
 
 		output = '';
 	};
-	
+
 	const deleteTask = id => {
     const task = tasks.filter(task => task.id === id);
 
@@ -44,38 +44,32 @@
 	};
 
 	const selectImportant = id => {
-    const reloadTasks = tasks.map(task => {
+    tasks = tasks.map(task => {
       if (task.id === id) {
         task.option = !task.option;
         task.complete = false;
       }
       return task;
     });
-
-		tasks = reloadTasks;
   };
 
 	const markComplete = id => {
-		const reloadTasks = tasks.map(task => {
+		tasks = tasks.map(task => {
 			if (task.id === id) {
 				task.complete = !task.complete;
 				task.option = false;
 			}
 			return task;
 		});
-
-		tasks = reloadTasks;
 	};
 
 	const textEdit = id => {
-    const reloadTasks = tasks.map(task => {
+    tasks = tasks.map(task => {
       if (task.id === id) {
         task.edit = !task.edit;
       }
       return task;
     });
-
-		tasks = reloadTasks;
   };
 </script>
 
@@ -104,29 +98,29 @@
 		</TaskInput>
 		<div class='container-task'>
 			{#each tasks as task (task.id)}
-				<Task {...task} bind:tasks={tasks} textEdit={textEdit}>
+				<Task bind:task={task} bind:tasks={tasks} textEdit={textEdit}>
 					<Icon
 						id={task.id}
 						iconFunction={textEdit}
-						className='fa-solid fa-pen proper-icon-child'
+						className='fa-solid fa-pen'
 						innerText='Edit'
 					/>
 					<Icon
 						id={task.id}
 						iconFunction={markComplete}
-						className='fa-regular fa-circle-check proper-icon-child'
+						className='fa-regular fa-circle-check'
 						innerText='Check'
 					/>
 					<Icon
 						id={task.id}
 						iconFunction={selectImportant}
-						className='fa-solid fa-circle-exclamation proper-icon-child'
+						className='fa-solid fa-circle-exclamation'
 						innerText='Important'
 					/>
 					<Icon
 						id={task.id}
 						iconFunction={deleteTask}
-						className='fa-regular fa-trash-can proper-icon-child'
+						className='fa-regular fa-trash-can'
 						innerText='Delete'
 					/>
 				</Task>
@@ -164,20 +158,26 @@
 	.logo {
 		height: 50px;
 	}
+
+	.main-container {
+		width: 600px;
+	}
 	
 	.container-task {
 		display: grid;
 		grid-template-columns: 1fr;
 		align-content: flex-start;
-		min-width: 500px;
-		width: 60%;
-		min-height: 500px;
+		width: 100%;
+		height: 600px;
 		margin: 0 auto;
 		margin-top: 20px;
 		padding: 10px 20px;
 		border-radius: 7px;
 		background-color: #f3f2b8;
-		row-gap: 10px;
+		overflow-y: auto;
+		scrollbar-width: none;
+		scrollbar-color: #dddddd #f3f2b8;
 		overflow-wrap: anywhere;
+		row-gap: 10px;
 	}  
 </style>

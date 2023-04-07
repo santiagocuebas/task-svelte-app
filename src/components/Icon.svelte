@@ -6,38 +6,39 @@
 </script>
 
 
-<div class='icon-child' on:mousedown={() => iconFunction(id)}>
+<li on:mousedown={() => iconFunction(id)}>
 	<i class={className}></i>
-	<div class="icon-text">
+	<p>
 		{innerText}
-	</div>
-</div>
+	</p>
+</li>
 
 
 <style>
-	
-	.icon-child {
+	li {
 		display: flex;
+		align-items: center;
 		width: 100%;
-		padding: 3px 6px;
-		gap: 5px;
+		padding: 3px 10px;
+		gap: 10px;
 	}
 	
-	.icon-child:hover {
+	li:hover {
 		background-color: #dddddd;
 	}
 	
-	.proper-icon-child {
+	i {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 28px;
-		height: 28px;
+		width: 20px;
+		height: 20px;
+		font-size: 20px;
 	}
 	
-	.icon-text {
+	p {
 		display: flex;
 		align-items: center;
-		font-size: 24px;
+		font-size: 20px;
 	}
 </style>

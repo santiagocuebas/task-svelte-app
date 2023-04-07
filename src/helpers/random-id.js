@@ -1,4 +1,3 @@
-
 export const randomId = () => {
   const validChar = 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789';
   let randomId = '';

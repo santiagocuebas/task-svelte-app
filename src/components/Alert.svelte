@@ -3,22 +3,20 @@
 	export let alert;
 	export let id;
 
-	const changeMessage = () => alert = false;
-
   const deleteTask = () => {
 		tasks = tasks.filter(task => task.id !== id);
     id = '';
-    changeMessage();
+    alert = false;
   };
 </script>
 
 <div class="alert-container">
 	<div class="alert-content">
-		<p class="alert-paragraph">Haven't yet completed this task. Do you want to delete it anyway?</p>
-		<button class="alert-button cancel" on:click|preventDefault={changeMessage}>
+		<p>Haven't yet completed this task. Do you want to delete it anyway?</p>
+		<button class="cancel" on:click={() => alert = false}>
 			Cancel
 		</button>
-		<button class="alert-button accept" on:click|preventDefault={deleteTask}>
+		<button class="accept" on:click={deleteTask}>
 			Accept
 		</button>
 	</div>
@@ -52,11 +50,11 @@
 		gap: 8px;
 	}
 	
-	.alert-paragraph {
+	p {
 		width: 100%;
 	}
 
-	.alert-button {
+	button {
 		width: fit-content;
 		margin: auto;
 		padding: 8px 24px;

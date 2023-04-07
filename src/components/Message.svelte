@@ -41,7 +41,7 @@
 		row-gap: 8px;
 	}
 
-	.message-button {
+	button {
 		width: fit-content;
 		margin: auto;
 		padding: 8px 24px;
@@ -54,7 +54,7 @@
 		cursor: pointer;
 	}
 
-	.message-button:hover {
+	button:hover {
 		background-color: #4588c6;
 	}
 </style>

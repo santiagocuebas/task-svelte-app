@@ -3,15 +3,14 @@
 	export let addTask;
 </script>
 
-<button
-  class={`button ${text.toLowerCase()}`}
-  on:click={() => addTask(text)}
->
+<button class={text.toLowerCase()} on:click={() => addTask(text)}>
   {text}
 </button>
 
 <style>
-	.button {
+	button {
+		width: min-content;
+		max-width: 112px;
 		padding: 8px 24px;
 		border: none;
 		border-radius: 4px;
